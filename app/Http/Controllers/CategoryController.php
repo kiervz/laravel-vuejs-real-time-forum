@@ -8,6 +8,17 @@ use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
+
+    /**
+     * Create a new CategoryController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['index', 'show']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *

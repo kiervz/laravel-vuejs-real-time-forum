@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */  
 
-Route::apiResource('/question', 'App\Http\Controllers\QuestionController');  
-Route::apiResource('/category', 'App\Http\Controllers\CategoryController');  
-Route::apiResource('/question/{question}/reply', 'App\Http\Controllers\ReplyController');
+Route::apiResource('/question', 'QuestionController');  
+Route::apiResource('/category', 'CategoryController');  
+Route::apiResource('/question/{question}/reply', 'ReplyController');
 
-Route::post('/like/{reply}', 'App\Http\Controllers\LikeController@likeIt')->name('like');
-Route::delete('/like/{reply}', 'App\Http\Controllers\LikeController@unLikeIt')->name('unlike');
+Route::post('/like/{reply}', 'LikeController@likeIt')->name('like');
+Route::delete('/like/{reply}', 'LikeController@unLikeIt')->name('unlike');
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('signup', [AuthController::class, 'signup']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
+
+});

@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */  
 
 Route::apiResource('/question', 'App\Http\Controllers\QuestionController');  
+Route::apiResource('/category', 'App\Http\Controllers\CategoryController');  

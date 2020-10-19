@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Question;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class QuestionFactory extends Factory
@@ -26,7 +27,7 @@ class QuestionFactory extends Factory
         $title = $this->faker->sentence;
     return [
         'title' => $title,
-        'slug' => String::slug($title),
+        'slug' => Str::slug($title),
         'body' => $this->faker->text,
         'category_id' => function() {
             return Category::all()->random();

@@ -22,6 +22,7 @@
 <body>
     <div id="app">
         <main class="py-4">
+            <router-link to="/login">Login</router-link>
             <router-link to="/hello">Go to Hello</router-link>
             <router-link to="/example">Go to Example</router-link>
             <router-view></router-view>

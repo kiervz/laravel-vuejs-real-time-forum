@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const routes = [
+    { path: '/login', component: require('./components/login/Login.vue').default },
     { path: '/hello', component: require('./components/Hello.vue').default },
     { path: '/example', component: require('./components/ExampleComponent.vue').default },
 ]

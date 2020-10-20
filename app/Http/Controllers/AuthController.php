@@ -91,4 +91,5 @@ class AuthController extends Controller
             'user' => Auth()->User()->name,
         ]);
     }
+    
 }

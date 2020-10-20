@@ -8,6 +8,8 @@ Vue.use(VueRouter);
 import User from './Helpers/User';
 window.User = User;
 
+console.log(User.name())
+
 const routes = [
     { path: '/login', component: require('./components/login/Login.vue').default },
     { path: '/hello', component: require('./components/Hello.vue').default },

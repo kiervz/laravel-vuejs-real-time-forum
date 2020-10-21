@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        I'm an Example component. {{message}}
+                        I'm an Forum component. {{message}}
                     </div>
                 </div>
             </div>
@@ -14,14 +14,11 @@
 
 <script>
     export default {
-        name: "ExampleComponents",
+        name: "Forum",
         data() {
             return {
                 message: "Hello"
             }
         },
-        mounted() {
-            console.log('Example Component mounted.')
-        }
     }
 </script>

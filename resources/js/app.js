@@ -1,25 +1,17 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import VueRouter from 'vue-router';
-
-Vue.use(VueRouter);
 
 import User from './Helpers/User';
 window.User = User;
 
-console.log(User.name())
+console.log(User.loggedIn())
 
-const routes = [
-    { path: '/login', component: require('./components/login/Login.vue').default },
-    { path: '/hello', component: require('./components/Hello.vue').default },
-    { path: '/example', component: require('./components/ExampleComponent.vue').default },
-]
+window.EventBus = new Vue();
 
-const router = new VueRouter({
-    mode: 'history',
-    routes // short for `routes: routes`
-});
+Vue.component('NavigationBar', require('./components/NavigationBar.vue').default);
+
+import router from './Router/router_.js'
 
 const app = new Vue({
   el: '#app',

@@ -2262,6 +2262,17 @@ __webpack_require__.r(__webpack_exports__);
     body: function body() {
       return marked__WEBPACK_IMPORTED_MODULE_1___default.a.parse(this.question.body);
     }
+  },
+  methods: {
+    destroy: function destroy() {
+      var _this = this;
+
+      axios["delete"]("/api/question/".concat(this.question.slug)).then(function (res) {
+        _this.$router.push('/');
+      })["catch"](function (error) {
+        return console.log(error.response.data);
+      });
+    }
   }
 });
 
@@ -57359,9 +57370,14 @@ var render = function() {
                       _vm._v("Edit")
                     ]),
                     _vm._v(" "),
-                    _c("button", { staticClass: "btn btn-danger btn-sm" }, [
-                      _vm._v("Delete")
-                    ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm",
+                        on: { click: _vm.destroy }
+                      },
+                      [_vm._v("Delete")]
+                    )
                   ])
                 : _vm._e()
             ]),

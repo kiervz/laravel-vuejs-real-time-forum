@@ -10,7 +10,7 @@
                             </div>
                             <div class="col-md-2" v-if="own">
                                 <button class="btn btn-primary btn-sm">Edit</button> 
-                                <button class="btn btn-danger btn-sm">Delete</button>
+                                <button class="btn btn-danger btn-sm" @click="destroy">Delete</button>
                             </div>
                         </div>
                         <p><small class="text-muted">{{ 'Asked ' + question.created_at }}</small></p>
@@ -60,6 +60,13 @@
         computed: {
             body() {
                 return md.parse(this.question.body);
+            }
+        },
+        methods: {
+            destroy() {
+                axios.delete(`/api/question/${this.question.slug}`)
+                    .then(res => { this.$router.push('/') })
+                    .catch(error => console.log(error.response.data))
             }
         }
     }

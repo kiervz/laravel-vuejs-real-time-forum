@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\QuestionRequest;
 use App\Http\Resources\QuestionResource;
 
 class QuestionController extends Controller
@@ -33,15 +36,15 @@ class QuestionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response    
      */
-    public function store(Request $request)
-    {
-        $question = Question::create($request->all());
+    public function store(QuestionRequest $request)
+    {  
+        $request['slug'] = Str::slug($request->title);
+        $question = auth()->user()->questions()->create($request->all());
 
         return response()->json([
-            'data' => $question,
-            'message' => 'Question successfully created.'
+            new QuestionResource($question)
         ]);
     }
 

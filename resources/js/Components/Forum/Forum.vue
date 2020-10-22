@@ -7,7 +7,7 @@
                         <h2>All Questions</h2>
                     </div>
                     
-                    <p class="ml-3">{{ countQuestions + ' questions'}}</p>
+                    <p class="ml-3">{{ this.countQuestions + ' questions'}}</p>
                 </div>
             </div>
             <question 
@@ -32,22 +32,21 @@
         data() {
             return {
                 questions: {},
+                countQuestions: 0,
             }
         },
         created() {
             this.getAllQuestions();
         },
-        computed: {
-            countQuestions() {
-                return this.questions.length;
-            }
-        },
         methods: {
             getAllQuestions() {
                 axios.get('api/question')
-                    .then(res => this.questions = res.data.data)
+                    .then(res => {
+                        this.questions = res.data.data;
+                        this.countQuestions = this.questions.length;
+                    })
                     .catch(error => error.response.data)
-            }
+            },
         }
     }
 </script>

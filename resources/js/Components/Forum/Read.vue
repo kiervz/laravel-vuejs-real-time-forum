@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <show-question :question=question :replies=replies></show-question>
+        <show-question :question=question :replies=replies v-if="question"></show-question>
     </div>
 </template>
 
@@ -11,7 +11,7 @@
         components: { ShowQuestion },
         data() {
             return {
-                question: {},
+                question: null,
                 replies: {},
             }
         },

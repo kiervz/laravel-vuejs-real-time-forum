@@ -4,7 +4,15 @@
             <div class="col-md-9">
                 <div class="card border-0">
                     <div class="card-body">
-                        <h3>{{ question.title }}</h3>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h3>{{ question.title }}</h3>
+                            </div>
+                            <div class="col-md-2" v-if="own">
+                                <button class="btn btn-primary btn-sm">Edit</button> 
+                                <button class="btn btn-danger btn-sm">Delete</button>
+                            </div>
+                        </div>
                         <p><small class="text-muted">{{ 'Asked ' + question.created_at }}</small></p>
                         <hr>
                         <div class="row">
@@ -14,7 +22,7 @@
                                 <button class="btn btn-primary btn-sm">Like</button>
                             </div>
                             <div class="col-md-10 text-justify">
-                                {{ question.body }}
+                                <p v-html="body"></p>
                             </div>
                         </div>
                     </div>
@@ -38,9 +46,21 @@
 
 <script>
     import Reply from './Reply'
+    import md from 'marked'
 
     export default {
+        name: "ShowQuestion",
         components: {Reply},
         props: ['question', 'replies'],
+        data() {
+            return {
+                own: User.own(this.question.user_id),
+            }
+        },
+        computed: {
+            body() {
+                return md.parse(this.question.body);
+            }
+        }
     }
 </script>

@@ -39,10 +39,11 @@ class AuthController extends Controller
 
     public function signup(SignupRequest $request)
     {
-
         User::create($request->all());
 
-        return $this->login($request);
+        return response()->json([
+            'message' => 'Successfully Registered.',
+        ]);
     }
 
     /**

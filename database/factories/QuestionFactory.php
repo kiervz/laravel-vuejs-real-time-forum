@@ -28,7 +28,7 @@ class QuestionFactory extends Factory
     return [
         'title' => $title,
         'slug' => Str::slug($title),
-        'body' => $this->faker->text,
+        'body' => $this->faker->realText(500),
         'category_id' => function() {
             return Category::all()->random();
         },

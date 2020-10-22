@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         
         User::factory(10)->create();
         Category::factory(5)->create();
-        Question::factory(10)->create();
+        Question::factory(50)->create();
         Reply::factory(50)->create()->each(function ($reply) {
             return $reply->like()->save(Like::factory()->make());
         });

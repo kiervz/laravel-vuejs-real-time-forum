@@ -5,8 +5,9 @@
                 <div class="card border-0">
                     <div class="card-body">
                         <h2>All Questions</h2>
-                        <p>{{ questions.length + ' questions'}}</p>
                     </div>
+                    
+                    <p class="ml-3">{{ countQuestions + ' questions'}}</p>
                 </div>
             </div>
             <question 
@@ -35,6 +36,11 @@
         },
         created() {
             this.getAllQuestions();
+        },
+        computed: {
+            countQuestions() {
+                return this.questions.length;
+            }
         },
         methods: {
             getAllQuestions() {

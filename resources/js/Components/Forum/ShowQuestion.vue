@@ -9,7 +9,7 @@
                                 <h3>{{ question.title }}</h3>
                             </div>
                             <div class="col-md-2" v-if="own">
-                                <button class="btn btn-primary btn-sm">Edit</button> 
+                                <button class="btn btn-primary btn-sm" @click="edit">Edit</button> 
                                 <button class="btn btn-danger btn-sm" @click="destroy">Delete</button>
                             </div>
                         </div>
@@ -67,6 +67,9 @@
                 axios.delete(`/api/question/${this.question.slug}`)
                     .then(res => { this.$router.push('/') })
                     .catch(error => console.log(error.response.data))
+            },
+            edit() {
+                EventBus.$emit('startEdit');
             }
         }
     }

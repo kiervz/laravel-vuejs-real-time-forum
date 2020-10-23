@@ -84,10 +84,7 @@
             }
         },
         created() {
-            axios.get('api/category')
-                .then(res => {this.categories = res.data.data})
-                .catch(error => console.log(error.response.data))
-            
+            this.getCateogries()
         },
         methods: {
             createQuestion() {
@@ -95,6 +92,11 @@
                     .then(res => {
                         this.$router.push(res.data[0].path);
                     })
+                    .catch(error => console.log(error.response.data))
+            },
+            getCateogries() {
+                axios.get('api/category')
+                    .then(res => {this.categories = res.data.data})
                     .catch(error => console.log(error.response.data))
             }
         }

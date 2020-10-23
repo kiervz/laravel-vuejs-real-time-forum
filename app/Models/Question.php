@@ -9,7 +9,7 @@ class Question extends Model
 {
     use HasFactory;
     
-    protected $guarded = [];
+    protected $fillable = ['title','slug','body','category_id'];
     
     public function user()
     {

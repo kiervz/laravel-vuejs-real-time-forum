@@ -12,7 +12,7 @@
             </div>
             <question 
                 v-for="question in questions" 
-                :key="question.path"
+                :key="question.id"
                 :question=question
             >
             </question>
@@ -40,12 +40,17 @@
         },
         methods: {
             getAllQuestions() {
+                this.$Progress.start()
                 axios.get('api/question')
                     .then(res => {
                         this.questions = res.data.data;
                         this.countQuestions = this.questions.length;
+                        this.$Progress.finish()
                     })
-                    .catch(error => error.response.data)
+                    .catch(error => {
+                        error.response.data
+                        this.$Progress.fail()
+                    })
             },
         }
     }

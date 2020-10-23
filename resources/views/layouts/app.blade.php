@@ -23,6 +23,8 @@
     <div id="app">
         <navigation-bar></navigation-bar>
         <router-view></router-view>
+        <!-- set progressbar -->
+        <vue-progress-bar></vue-progress-bar>
     </div>
 </body>
 </html>

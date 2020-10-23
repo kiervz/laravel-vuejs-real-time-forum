@@ -33,6 +33,6 @@ class Question extends Model
 
     public function getPathAttribute()
     {
-        return "question/$this->id/$this->slug";
+        return "question/$this->slug";
     }
 }

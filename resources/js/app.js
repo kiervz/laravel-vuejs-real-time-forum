@@ -9,11 +9,19 @@ console.log(User.loggedIn())
 
 window.EventBus = new Vue();
 
-import VueSimplemde from 'vue-simplemde'
+// Vue Progress bar
+import VueProgressBar from 'vue-progressbar'
+Vue.use(VueProgressBar, {
+  color: 'rgb(143, 255, 199)',
+  failedColor: 'red',
+  height: '2px'
+})
 
-// SimpleMDE
-Vue.component('vue-simplemde', VueSimplemde)
+// SimpleMDE 
+import VueSimplemde from 'vue-simplemde'
 import md from 'marked'
+
+Vue.component('vue-simplemde', VueSimplemde)
 window.md = md
 
 // Sweet Alert

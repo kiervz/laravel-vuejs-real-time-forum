@@ -64,9 +64,28 @@
         },
         methods: {
             destroy() {
-                axios.delete(`/api/question/${this.question.slug}`)
-                    .then(res => { this.$router.push('/') })
-                    .catch(error => console.log(error.response.data))
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(`/api/question/${this.question.slug}`)
+                            .then(({data}) => { 
+                                this.$router.push('/')
+                                Toast.fire({
+                                    icon: data.status,
+                                    title: data.message
+                                });
+                             })
+                            .catch(error => console.log(error.response.data))
+                    }
+                })
+                
             },
             edit() {
                 EventBus.$emit('startEdit');

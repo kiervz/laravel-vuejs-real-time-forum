@@ -51,7 +51,6 @@
         },
         mounted() {
             this.form = this.question
-            console.log(this.form);
         },
         methods: {
             updateQuestion() {

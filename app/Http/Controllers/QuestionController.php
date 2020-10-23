@@ -71,6 +71,7 @@ class QuestionController extends Controller
         $question->update($request->all());
         
         return response()->json([
+            'status' => 'success',
             'message' => 'Question successfully updated.'
         ]);
     }
@@ -86,6 +87,7 @@ class QuestionController extends Controller
         $question->delete();
 
         return response()->json([
+            'status' => 'success',
             'message' => 'Question successfully deleted.'
         ]);
     }

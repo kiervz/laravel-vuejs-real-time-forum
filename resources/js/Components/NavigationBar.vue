@@ -1,25 +1,15 @@
 <template>
-        <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top mb-4">
-            <div class="container-fluid">
-                <a href="#" class="navbar-brand"><img v-bind:src="'/images/logo.png'"></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item" v-for="item in items" :key="item.title">
-                            <router-link
-                                :to="item.to" 
-                                v-if="item.show"
-                                class="nav-link">
-                                {{ item.title }}
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <v-toolbar dense dark>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-toolbar-title>Title</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class="hidden-sm-and-down" v-for="item in items" :key="item.title">
+            <v-btn text
+                :to="item.to" 
+                v-if="item.show"              
+            >{{ item.title }}</v-btn>
+        </v-toolbar-items>
+    </v-toolbar>
 </template>
 
 <script>

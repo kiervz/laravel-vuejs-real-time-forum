@@ -7,10 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <title>Real Time Forum  </title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,10 +18,14 @@
 </head>
 <body>
     <div id="app">
-        <navigation-bar></navigation-bar>
-        <router-view></router-view>
-        <!-- set progressbar -->
-        <vue-progress-bar></vue-progress-bar>
+        <v-app>
+            <!-- set progressbar -->
+            <vue-progress-bar></vue-progress-bar>
+            <app-home></app-home>
+        </v-app>
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

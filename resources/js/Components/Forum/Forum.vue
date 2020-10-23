@@ -1,26 +1,33 @@
 <template>
-    <div class="container-fluid">
-        <div class="col-md-8">
-            <div class="">
-                <div class="card border-0">
-                    <div class="card-body">
-                        <h2>All Questions</h2>
-                    </div>
-                    
-                    <p class="ml-3">{{ this.countQuestions + ' questions'}}</p>
-                </div>
+    <v-app>
+        <div class="container-fluid">
+            <div class="col-md-8">
+                <v-card class="mx-auto rounded-0" height="150px">
+                    <v-list-item three-line>
+                        <v-list-item-content class="pl-10 pt-10">
+                            <v-list-item-title class="headline">
+                                All Questions
+                            </v-list-item-title>
+                            <v-list-item-subtitle class="mt-4">
+                                {{ this.countQuestions + ' questions'}}
+                            </v-list-item-subtitle>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-card>
+                <br>
+                <question 
+                    v-for="question in questions" 
+                    :key="question.id"
+                    :question=question
+                >
+                </question>
+                
             </div>
-            <question 
-                v-for="question in questions" 
-                :key="question.id"
-                :question=question
-            >
-            </question>
-        </div>
-        <div class="col-md-4">
+            <div class="col-md-4">
 
+            </div>
         </div>
-    </div>
+    </v-app>
 </template>
 
 <script>

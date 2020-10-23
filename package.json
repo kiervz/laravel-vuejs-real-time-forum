@@ -12,10 +12,12 @@
     "devDependencies": {
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
+        "case-sensitive-paths-webpack-plugin": "^2.3.0",
         "cross-env": "^7.0",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
+        "material-design-icons-iconfont": "^6.1.0",
         "popper.js": "^1.12",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.15.2",
@@ -27,6 +29,7 @@
         "vue": "^2.6.12",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.4.7",
-        "vue-simplemde": "^1.1.2"
+        "vue-simplemde": "^1.1.2",
+        "vuetify": "^2.3.15"
     }
 }

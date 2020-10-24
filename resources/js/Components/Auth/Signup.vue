@@ -1,44 +1,41 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
+    <v-container>
+        <v-row>
+            <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">{{message}}</div>
-
-                    <div class="card-body">
-                        <form @submit.prevent="signup">
-
-                            <div v-for="(item, $index) in items" :key="$index" class="form-group">
-                                <div class="form-group">
-                                    <label :for="item.name">{{ item.label }}</label>
-                                    <input 
-                                        class="form-control"
-                                        :type="item.type"
-                                        :name="item.name"
-                                        v-model="form[item.name]"
-                                        :class="errors[item.name] ? 'is-invalid' : ''"
-                                    >
-                                    <div v-for="(err, i) in errors[item.name]" :key="i">
-                                        <span role="alert" :class="errors[item.name] ? 'invalid-feedback d-block' : ''">
-                                            <strong>{{ err }}</strong>
-                                        </span>
-                                    </div>
-                                </div>
+                <v-card class="mx-auto">
+                    <v-card-text>
+                        <v-form
+                            ref="form"
+                            lazy-validation
+                        >
+                            <div v-for="(item, $index) in items" :key="$index">
+                                <v-text-field
+                                    :type="item.type"
+                                    v-model="form[item.name]"
+                                    :label="item.label"
+                                    :name="form[item.name]"
+                                ></v-text-field>
+                                <span class="red--text" v-if="errors[item.name]">{{ errors[item.name][0] }}</span>
                             </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary form-control">
-                                        Sign Up
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                        </v-form>
+                        
+                        <v-btn 
+                            class="mr-4" 
+                            color="primary"
+                            @click="signup"
+                            block>
+                            Login
+                        </v-btn>
+                        <div class="mt-5 text-center">
+                            Already have an Account? <router-link to="/login" class="text-decoration-none">Login</router-link>
+                        </div>
+                    </v-card-text>
+                </v-card>
             </div>
-        </div>
-    </div>
+            <div class="col-md-3"></div>
+        </v-row>
+    </v-container>
 </template>
 
 <script>

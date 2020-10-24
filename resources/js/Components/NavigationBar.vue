@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar dense dark>
+    <v-toolbar dense dark fixed>
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
         <v-toolbar-title>Title</v-toolbar-title>
         <v-spacer></v-spacer>

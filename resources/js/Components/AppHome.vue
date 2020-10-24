@@ -1,6 +1,6 @@
 <template>
     <div>
-        <navigation-bar></navigation-bar>
+        <navigation-bar class="fixed-bar"></navigation-bar>
         <router-view></router-view>
         <app-footer></app-footer>
     </div>
@@ -14,3 +14,12 @@
         components: {NavigationBar, AppFooter}
     }   
 </script>
+
+<style>
+    .fixed-bar {
+        position: sticky;
+        position: -webkit-sticky; /* for Safari */
+        top: 0em;
+        z-index: 2;
+    }
+</style>

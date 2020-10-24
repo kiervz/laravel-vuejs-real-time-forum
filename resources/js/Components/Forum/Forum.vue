@@ -14,8 +14,7 @@
                         </v-list-item-content>
                     </v-list-item>
                 </v-card>
-                <br>
-                <question 
+                <question
                     v-for="question in questions" 
                     :key="question.id"
                     :question=question

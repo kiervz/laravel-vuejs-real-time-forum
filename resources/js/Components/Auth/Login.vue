@@ -1,61 +1,46 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
+        <v-row>
+            <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">{{message}}</div>
-                    
-                    <div class="card-body">
-                        <span class="alert alert-danger form-control p-2 text-center" v-if="error ? 'invalid-feedback d-block' : ''">
-                            <strong>{{ error }}</strong>
-                        </span>
-                        <form @submit.prevent="login">
+                <v-card class="mx-auto">
+                    <v-card-text>
+                        <v-form
+                            ref="form"
+                            lazy-validation
+                        >
                             
-                            <div v-for="(item, $index) in items" :key="$index" class="form-group">
-                                <div class="form-group">
-                                    <label :for="item.name">{{ item.label }}</label>
-                                    <input 
-                                        class="form-control"
-                                        :type="item.type"
-                                        :name="item.name"
-                                        v-model="form[item.name]"
-                                        :class="errors[item.name] ? 'is-invalid' : ''"
-                                    >
-                                    <div v-for="(err, i) in errors[item.name]" :key="i">
-                                        <span role="alert" :class="errors[item.name] ? 'invalid-feedback d-block' : ''">
-                                            <strong>{{ err }}</strong>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            <v-text-field
+                                v-model="form['email']"
+                                label="Email"
+                                type="email"
+                            ></v-text-field>
+                            <span class="red--text" v-if="errors.email">{{ errors.email[0] }}</span>
+                            
+                            <v-text-field
+                                v-model="form['password']"
+                                type="password"
+                                label="Password"
+                                
+                            ></v-text-field>
+                            <span class="red--text" v-if="errors.password">{{ errors.password[0] }}</span>
 
-                            <div class="form-group row mt-4">
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
-
-                                        <label class="form-check-label" for="remember">
-                                            Remember Me
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary form-control">
-                                        Login
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center">
-                        <router-link to="/signup">Create you account</router-link>
-                    </div>
-                </div>
+                        </v-form>
+                        <v-btn 
+                            class="mr-4" 
+                            color="primary"
+                            @click="login"
+                            block>
+                            Login
+                        </v-btn>
+                        <div class="mt-5 text-center">
+                            <router-link to="/signup" class="text-decoration-none">Create your Account</router-link>
+                        </div>
+                    </v-card-text>
+                </v-card>
             </div>
-        </div>
+            <div class="col-md-3"></div>
+        </v-row>
     </div>
 </template>
 
@@ -69,22 +54,8 @@
                     email: null,
                     password: null,
                 },
-                items: [
-                    {
-                        label: 'Email',
-                        name: 'email',
-                        required: 'required',
-                        type: 'email'
-                    },
-                    {
-                        label: 'Password',
-                        name: 'password',
-                        required: 'required',
-                        type: 'password'
-                    },
-                ],
                 error: null,
-                errors:[],
+                errors:{},
             }
         },
         created() {

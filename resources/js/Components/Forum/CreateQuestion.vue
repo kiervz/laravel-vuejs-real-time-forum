@@ -24,6 +24,7 @@
 
                  <v-btn
                     class="mr-4"
+                    color="primary"
                     @click="createQuestion"
                 >
                     submit

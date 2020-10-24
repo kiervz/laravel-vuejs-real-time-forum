@@ -1,47 +1,64 @@
 <template>
-    <div>
-        <div class="row">
+    <v-container>
+        <v-row>
+            <div class="col-md-10">
+                <div class="text-h5">{{ question.title }}</div>
+                <div class="black--text mt-3 caption">{{ 'Asked ' + question.created_at }}</div>
+            </div>
+            <div class="col-md-2" v-if="own">
+                <v-btn small color="primary" @click="edit">Edit</v-btn> 
+                <v-btn small color="error" @click="destroy">Delete</v-btn>
+            </div>
+        </v-row>
+        <v-divider></v-divider>
+        <v-row>
             <div class="col-md-9">
-                <div class="card border-0">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3>{{ question.title }}</h3>
-                            </div>
-                            <div class="col-md-2" v-if="own">
-                                <button class="btn btn-primary btn-sm" @click="edit">Edit</button> 
-                                <button class="btn btn-danger btn-sm" @click="destroy">Delete</button>
-                            </div>
-                        </div>
-                        <p><small class="text-muted">{{ 'Asked ' + question.created_at }}</small></p>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-2 text-center">
-                                <button class="btn btn-primary btn-sm">Like</button>
-                                <h4 class="p-1 mt-3 mb-3 text-muted">{{ question.id }}</h4>
-                                <button class="btn btn-primary btn-sm">Like</button>
-                            </div>
-                            <div class="col-md-10 text-justify">
-                                <p v-html="body"></p>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-md-2 text-center" dark>
+                        <v-btn icon> 
+                            <v-icon dark>
+                                thumb_up
+                            </v-icon>
+                        </v-btn>
+                        <div class="p-1 mt-3 mb-3">{{ question.id }}</div>
+                        <v-btn icon> 
+                            <v-icon dark>
+                                thumb_down
+                            </v-icon>
+                        </v-btn>
+                    </div>
+                    <div class="col-md-10 text-justify">
+                        <p v-html="body"></p>
                     </div>
                 </div>
             </div>
             <div class="col-md-3">
             </div>
-        </div>
-        <div class="row">
+        </v-row>
+        <v-row>
             <div class="col-md-9">
                 <div class="mt-4">
-                    <h5 v-if="replies.length > 1">{{ replies.length + ' Answers'}}</h5>
-                    <h5 v-else>{{ replies.length + ' Answer'}}</h5> 
+                    <div class="black--text text-h6" v-if="replies.length > 1">{{ replies.length + ' Answers'}}</div>
+                    <div class="black--text text-h6" v-else>{{ replies.length + ' Answer'}}</div> 
                 </div>
+                <v-divider></v-divider>
                 <reply :replies=replies></reply>
+                <div class="black--text text-h6 mb-2">Your Answer</div>
+                <v-form
+                    ref="form"
+                    lazy-validation
+                >
+                    <vue-simplemde v-model="form['reply']" name="reply" id="reply"/>
+                    <v-btn
+                        color="primary"
+                    >
+                        Post Your Answer
+                    </v-btn>
+                </v-form>
             </div>
             <div class="col-md-3"></div>
-        </div>
-    </div>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -55,6 +72,9 @@
         data() {
             return {
                 own: User.own(this.question.user_id),
+                form: {
+                    reply:null,
+                }
             }
         },
         computed: {

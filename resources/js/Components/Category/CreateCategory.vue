@@ -6,14 +6,14 @@
                 label="Category*"
                 required
             ></v-text-field>
-            <v-btn v-if="editSlug" type="submit" color="primary">Update</v-btn>
+            <v-btn v-if="editSlug" type="submit" color="purple">Update</v-btn>
             <v-btn v-else type="submit" color="primary">Create</v-btn>
             <v-btn v-if="editSlug" class="mr-4" color="normal" @click="cancel">
                 <v-icon left>cancel</v-icon>
                 cancel
             </v-btn>
         </v-form>
-                    <br>
+        <br>
         <v-card class="mx-auto">
             <v-toolbar dark dense>
                 <v-toolbar-title>Categories</v-toolbar-title>
@@ -39,7 +39,6 @@
                     </v-list-item>
                     <v-divider></v-divider>
                 </div>
-                
             </v-list>
         </v-card>
     </v-container>
@@ -57,6 +56,9 @@
             }
         },
         created() {
+            if (!User.admin()) {
+                this.$router.push('/');
+            }
             this.loadCategories();
         },
         methods: {

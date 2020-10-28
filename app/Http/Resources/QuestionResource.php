@@ -20,6 +20,8 @@ class QuestionResource extends JsonResource
             'slug' => $this->slug,
             'path' => $this->path,
             'body' => $this->body,
+            'replies' => ReplyResource::collection($this->replies),
+            'reply_count' => $this->replies->count(),
             'category' => $this->category->name,
             'user_id' => $this->user_id,
             'user' => $this->user->name,

@@ -38,23 +38,21 @@
         <v-row>
             <v-flex md9>
                 <div class="mt-4">
-                    <div class="black--text text-h6" v-if="replies.length > 1">{{ replies.length + ' Answers'}}</div>
-                    <div class="black--text text-h6" v-else>{{ replies.length + ' Answer'}}</div> 
+                    <div class="black--text text-h6" v-if="question.reply_count > 1">{{ question.reply_count + ' Answers'}}</div>
+                    <div class="black--text text-h6" v-else>{{ question.reply_count + ' Answer'}}</div> 
                 </div>
                 <v-divider></v-divider>
-                <reply :replies=replies></reply>
-                <div class="black--text text-h6 mb-2">Your Answer</div>
+                <!-- <reply :replies=replies></reply> -->
+                <!-- <div class="black--text text-h6 mb-2">Your Answer</div>
                 <v-form
                     ref="form"
                     lazy-validation
                 >
                     <vue-simplemde v-model="form['reply']" name="reply" id="reply"/>
-                    <v-btn
-                        color="primary"
-                    >
+                    <v-btn color="primary">
                         Post Your Answer
                     </v-btn>
-                </v-form>
+                </v-form> -->
             </v-flex>
             <v-flex md3></v-flex>
         </v-row>
@@ -62,13 +60,13 @@
 </template>
 
 <script>
-    import Reply from './Reply'
+    import Reply from '../Reply/Reply'
     import md from 'marked'
 
     export default {
         name: "ShowQuestion",
         components: {Reply},
-        props: ['question', 'replies'],
+        props: ['question'],
         data() {
             return {
                 own: User.own(this.question.user_id),

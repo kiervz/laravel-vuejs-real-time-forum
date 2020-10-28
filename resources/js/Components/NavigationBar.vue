@@ -1,7 +1,7 @@
 <template>
     <v-toolbar dense dark fixed>
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <v-toolbar-title>Title</v-toolbar-title>
+        <v-toolbar-title>Stack Underflow</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down" v-for="item in items" :key="item.title">
             <v-btn text

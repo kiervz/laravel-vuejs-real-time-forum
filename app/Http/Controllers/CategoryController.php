@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
 
@@ -37,9 +38,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request['slug'] = Str::slug($request->name);
         $category = Category::create($request->all());
         
         return response()->json([
+            'name' => $category->name,
+            'status' => 'success',
             'message' => 'Category successfully added.'
         ]);
     }
@@ -64,9 +68,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $request['slug'] = Str::slug($request->name);
         $category->update($request->all());
         
         return response()->json([
+            'status' => 'success',
             'message' => 'Category successfully updated.'
         ]);
     }
@@ -82,6 +88,7 @@ class CategoryController extends Controller
         $category->delete();
 
         return response()->json([
+            'status' => 'success',
             'message' => 'Category successfully deleted.'
         ]);
     }

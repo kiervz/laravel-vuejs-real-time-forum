@@ -55,7 +55,7 @@
         methods: {
             update() {
                 Swal.fire({
-                    title: 'Are you update?',
+                    title: 'Are you sure?',
                     text: "You won't be able to revert this!",
                     icon: 'question',
                     showCancelButton: true,

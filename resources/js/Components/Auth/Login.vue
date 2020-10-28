@@ -24,15 +24,15 @@
                                 
                             ></v-text-field>
                             <span class="red--text" v-if="errors.password">{{ errors.password[0] }}</span>
-
+                            
+                            <v-btn 
+                                class="mr-4" 
+                                color="primary"
+                                @click="login"
+                                block>
+                                Login
+                            </v-btn>
                         </v-form>
-                        <v-btn 
-                            class="mr-4" 
-                            color="primary"
-                            @click="login"
-                            block>
-                            Login
-                        </v-btn>
                         <div class="mt-5 text-center">
                             <router-link to="/signup" class="text-decoration-none">Create your Account</router-link>
                         </div>

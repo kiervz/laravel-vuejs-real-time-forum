@@ -1,19 +1,19 @@
 <template>
     <v-container>
         <v-row>
-            <div class="col-md-10">
+            <v-flex md10>
                 <div class="text-h5">{{ question.title }}</div>
                 <div class="black--text mt-3 caption">{{ 'Asked ' + question.created_at }}</div>
-            </div>
-            <div class="col-md-2" v-if="own">
+            </v-flex>
+            <v-flex md2 v-if="own">
                 <v-btn small color="primary" @click="edit">Edit</v-btn> 
                 <v-btn small color="error" @click="destroy">Delete</v-btn>
-            </div>
+            </v-flex>
         </v-row>
         <v-divider></v-divider>
         <v-row>
-            <div class="col-md-9">
-                <div class="row">
+            <v-flex md9>
+                <v-row>
                     <div class="col-md-2 text-center" dark>
                         <v-btn icon> 
                             <v-icon dark>
@@ -30,13 +30,13 @@
                     <div class="col-md-10 text-justify">
                         <p v-html="body"></p>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-            </div>
+                </v-row>
+            </v-flex>
+            <v-flex md3>
+            </v-flex>
         </v-row>
         <v-row>
-            <div class="col-md-9">
+            <v-flex md9>
                 <div class="mt-4">
                     <div class="black--text text-h6" v-if="replies.length > 1">{{ replies.length + ' Answers'}}</div>
                     <div class="black--text text-h6" v-else>{{ replies.length + ' Answer'}}</div> 
@@ -55,8 +55,8 @@
                         Post Your Answer
                     </v-btn>
                 </v-form>
-            </div>
-            <div class="col-md-3"></div>
+            </v-flex>
+            <v-flex md3></v-flex>
         </v-row>
     </v-container>
 </template>

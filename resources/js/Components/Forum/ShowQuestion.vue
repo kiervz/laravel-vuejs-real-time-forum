@@ -41,18 +41,6 @@
                     <div class="black--text text-h6" v-if="question.reply_count > 1">{{ question.reply_count + ' Answers'}}</div>
                     <div class="black--text text-h6" v-else>{{ question.reply_count + ' Answer'}}</div> 
                 </div>
-                <v-divider></v-divider>
-                <!-- <reply :replies=replies></reply> -->
-                <!-- <div class="black--text text-h6 mb-2">Your Answer</div>
-                <v-form
-                    ref="form"
-                    lazy-validation
-                >
-                    <vue-simplemde v-model="form['reply']" name="reply" id="reply"/>
-                    <v-btn color="primary">
-                        Post Your Answer
-                    </v-btn>
-                </v-form> -->
             </v-flex>
             <v-flex md3></v-flex>
         </v-row>
@@ -61,7 +49,6 @@
 
 <script>
     import Reply from '../Reply/Reply'
-    import md from 'marked'
 
     export default {
         name: "ShowQuestion",

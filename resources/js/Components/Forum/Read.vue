@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div v-if="question">
         <edit-question
             v-if="isEdit"
             :question=question  
@@ -8,9 +8,12 @@
             v-else
             :question=question>
         </show-question>
-        <replies 
-            :replies="question.replies">
-        </replies>
+         <div class="container">
+            <replies 
+                :replies="question.replies">
+            </replies>
+            <new-reply :questionSlug="question.slug"></new-reply>
+        </div>
     </div>
 </template>
 
@@ -18,9 +21,10 @@
     import ShowQuestion from './ShowQuestion'
     import EditQuestion from './EditQuestion'
     import Replies from '../Reply/Replies'
+    import NewReply from '../Reply/NewReply'
 
     export default {
-        components: { ShowQuestion, EditQuestion, Replies },
+        components: { ShowQuestion, EditQuestion, Replies, NewReply },
         data() {
             return {
                 question: null,

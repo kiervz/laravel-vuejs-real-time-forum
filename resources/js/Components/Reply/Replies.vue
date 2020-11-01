@@ -31,12 +31,14 @@
                 EventBus.$on('newReply', (reply) => {
                     this.content.unshift(reply)
                     window.scrollTo(0,0)
+                    EventBus.$emit('plusReplyCount') 
                 })
 
                 EventBus.$on('deleteReply', (index) => {
                     axios.delete(`/api/question/${this.question.slug}/reply/${this.content[index].id}`)
                         .then(res => {
                             this.content.splice(index, 1)
+                            EventBus.$emit('minusReplyCount') 
                         })
                         .catch(error => console.log(error.response.data))
                 })

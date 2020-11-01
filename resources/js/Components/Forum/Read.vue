@@ -10,9 +10,12 @@
                 :question=question>
             </show-question>
             <replies 
-                :question="question">
+                :question="question"
+                v-if="!isEdit">
             </replies>
-            <new-reply :questionSlug="question.slug"></new-reply>
+            <new-reply 
+                :questionSlug="question.slug"
+                v-if="!isEdit"></new-reply>
         </div>
     </div>
 </template>

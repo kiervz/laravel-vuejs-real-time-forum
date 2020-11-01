@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row>
-            <v-flex md10 class="mt-2">
+            <v-flex md10>
                 <div class="text-h5">{{ question.title }}</div>
                 <div class="grey--text mt-2 caption">Asked <span class="text--primary">{{ question.created_at }}</span></div>
             </v-flex>
@@ -11,7 +11,7 @@
             </v-flex>
         </v-row>
         <v-row>
-            <v-flex md12>
+            <v-flex md12 class="mt-2">
                 <v-divider></v-divider>
             </v-flex>
         </v-row>
@@ -20,13 +20,13 @@
                 <v-row>
                     <div class="col-md-2 text-center" dark>
                         <v-btn icon> 
-                            <v-icon dark>
+                            <v-icon color="dark">
                                 thumb_up
                             </v-icon>
                         </v-btn>
                         <div class="p-1 mt-3 mb-3">{{ question.id }}</div>
                         <v-btn icon> 
-                            <v-icon dark>
+                            <v-icon color="dark">
                                 thumb_down
                             </v-icon>
                         </v-btn>
@@ -42,8 +42,8 @@
         <v-row>
             <v-flex md9>
                 <div class="mt-4">
-                    <div class="black--text text-h6" v-if="question.reply_count > 1">{{ question.reply_count + ' Answers'}}</div>
-                    <div class="black--text text-h6" v-else>{{ question.reply_count + ' Answer'}}</div> 
+                    <div class="black--text text-h6" v-if="reply_count > 1">{{ reply_count + ' Answers'}}</div>
+                    <div class="black--text text-h6" v-else>{{ reply_count + ' Answer'}}</div> 
                 </div>
             </v-flex>
             <v-flex md3></v-flex>
@@ -63,8 +63,12 @@
                 own: User.own(this.question.user_id),
                 form: {
                     reply:null,
-                }
+                },
+                reply_count: this.question.reply_count
             }
+        },
+        created() {
+            this.listen()
         },
         computed: {
             body() {
@@ -98,6 +102,15 @@
             },
             edit() {
                 EventBus.$emit('startEdit');
+            },
+            listen() {
+                EventBus.$on('plusReplyCount', () => {
+                    this.reply_count += 1
+                })
+
+                EventBus.$on('minusReplyCount', () => {
+                    this.reply_count -= 1
+                })
             }
         }
     }

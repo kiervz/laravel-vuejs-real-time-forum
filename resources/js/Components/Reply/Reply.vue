@@ -1,17 +1,26 @@
 <template>
     <v-card class="mt-2">
         <v-list-item-content>
-            <div class="ml-4">
-                <router-link 
-                    :to="data.user" 
-                    class="text-decoration-none">{{ data.user }}
-                </router-link>
-                <span class="grey--text caption">{{ data.created_at }}</span>
-            </div>
-            <v-card-text>
-                <edit-reply v-if="isEdit" :reply=data></edit-reply>
-                <div v-else class="text--primary" v-html="reply">
+            <v-flex md11>
+                <div class="ml-4">
+                    <router-link 
+                        :to="data.user" 
+                        class="text-decoration-none">{{ data.user }}
+                    </router-link>
+                    <span class="grey--text caption">{{ data.created_at }}</span>
                 </div>
+            </v-flex>
+            <v-flex md1>
+                <likes :data="data"></likes>
+            </v-flex>
+            <edit-reply 
+                v-if="isEdit"
+                :reply=data>
+            </edit-reply>
+            <v-card-text 
+                v-else 
+                class="text--primary" 
+                v-html="reply">
             </v-card-text>
         </v-list-item-content>
         <div v-if="!isEdit">
@@ -29,10 +38,11 @@
 
 <script>
     import EditReply from './EditReply'
+    import Likes from '../Likes/ReplyLikes/Likes'
 
     export default {
         props: ['data', 'index'],
-        components: { EditReply },
+        components: { EditReply, Likes },
         data() {
             return {
                isEdit:false,
@@ -66,7 +76,7 @@
                         this.beforeEditReplyBody = ''
                     }
                 })
-            }
+            },
         }
     }
 </script>

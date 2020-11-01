@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
@@ -21,12 +22,12 @@ class LikeController extends Controller
     public function likeIt(Reply $reply)
     {
         $reply->like()->create([
-            'user_id' => '1'
+            'user_id' => Auth::id(),
         ]);
     }
 
     public function unLikeIt(Reply $reply)
     {
-        $reply->like()->where(['user_id' => '1'])->first()->delete();
+        $reply->like()->where(['user_id' => Auth::id()])->first()->delete();
     }
 }

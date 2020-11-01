@@ -1,14 +1,14 @@
 <template>
     <div v-if="question">
-        <edit-question
-            v-if="isEdit"
-            :question=question  
-            ></edit-question>
-        <show-question 
-            v-else
-            :question=question>
-        </show-question>
          <div class="container">
+            <edit-question
+                v-if="isEdit"
+                :question=question  
+                ></edit-question>
+            <show-question 
+                v-else
+                :question=question>
+            </show-question>
             <replies 
                 :question="question">
             </replies>

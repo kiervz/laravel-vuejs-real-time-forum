@@ -3,14 +3,18 @@
         <v-row>
             <v-flex md10 class="mt-2">
                 <div class="text-h5">{{ question.title }}</div>
-                <div class="black--text mt-3 caption">{{ 'Asked ' + question.created_at }}</div>
+                <div class="grey--text mt-2 caption">Asked <span class="text--primary">{{ question.created_at }}</span></div>
             </v-flex>
             <v-flex md2 v-if="own">
                 <v-btn small color="primary" @click="edit">Edit</v-btn> 
                 <v-btn small color="error" @click="destroy">Delete</v-btn>
             </v-flex>
         </v-row>
-        <v-divider></v-divider>
+        <v-row>
+            <v-flex md12>
+                <v-divider></v-divider>
+            </v-flex>
+        </v-row>
         <v-row>
             <v-flex md9>
                 <v-row>

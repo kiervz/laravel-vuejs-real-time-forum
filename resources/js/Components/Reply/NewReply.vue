@@ -3,7 +3,7 @@
         <v-flex md9>
             <div class="black--text text-h6 mb-2">Your Answer</div>
 
-            <vue-simplemde v-model="reply" name="reply" class="reply"/>
+            <vue-simplemde v-model="reply" name="reply"/>
             <v-btn color="primary" @click="submit">
                 Post Your Answer
             </v-btn>
@@ -32,6 +32,3 @@
         }
     }
 </script>
-<style>
-
-</style>

@@ -8,7 +8,6 @@
                 :data="reply"
                 >
             </reply>
-            <v-divider></v-divider>
         </v-flex>
     </v-container>
 </template>

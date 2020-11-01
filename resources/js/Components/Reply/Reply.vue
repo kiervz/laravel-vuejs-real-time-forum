@@ -1,6 +1,5 @@
 <template>
     <div>
-        <v-divider></v-divider>
         <v-list-item-content class="pa-5">
             <div>{{ data.body + ' – ' }} 
                 <router-link 
@@ -13,17 +12,18 @@
                 <v-btn icon small>
                     <v-icon color="orange">edit</v-icon>
                 </v-btn>
-                <v-btn icon small>
+                <v-btn icon small @click="destroy">
                     <v-icon color="red">delete</v-icon>
                 </v-btn>
             </div>
         </v-list-item-content>
+        <v-divider></v-divider>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['data'],
+        props: ['data', 'index'],
         data() {
             return {
                
@@ -35,7 +35,9 @@
             }
         },
         methods: {
-            
+            destroy() {
+                EventBus.$emit('deleteReply', this.index)
+            }
         }
     }
 </script>

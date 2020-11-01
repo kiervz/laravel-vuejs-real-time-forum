@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row>
-            <v-flex md10>
+            <v-flex md10 class="mt-2">
                 <div class="text-h5">{{ question.title }}</div>
                 <div class="black--text mt-3 caption">{{ 'Asked ' + question.created_at }}</div>
             </v-flex>

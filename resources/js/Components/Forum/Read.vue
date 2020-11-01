@@ -10,7 +10,7 @@
         </show-question>
          <div class="container">
             <replies 
-                :replies="question.replies">
+                :question="question">
             </replies>
             <new-reply :questionSlug="question.slug"></new-reply>
         </div>

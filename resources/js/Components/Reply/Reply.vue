@@ -60,7 +60,7 @@
                 return md.parse(this.data.body)
             }
         },
-        methods: {
+        methods: {                                                                      
             destroy() {
                 EventBus.$emit('deleteReply', this.index)
             },

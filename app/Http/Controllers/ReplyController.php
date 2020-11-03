@@ -86,6 +86,12 @@ class ReplyController extends Controller
      */
     public function destroy(Question $question, Reply $reply)
     {
+        $user = $question->user;
+        $user->notifications()
+        ->whereJsonContains('data', ['reply_id' => $reply->id])
+        ->first()
+        ->delete();
+
         $reply->delete();
 
         return response()->json([

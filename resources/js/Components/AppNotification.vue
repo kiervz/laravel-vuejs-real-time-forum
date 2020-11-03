@@ -8,7 +8,7 @@
                     </v-icon> {{ unreadCount }}
                 </v-btn>
             </template>
-            <v-list width="350">
+            <v-list width="320">
                 <div v-for="item in unread" :key="item.id" dense>
                     <v-list-item>
                         <v-list-item-content>
@@ -42,6 +42,9 @@
                     </v-list-item>
                     <v-divider></v-divider>
                 </div>
+                <v-list-item-content v-if="read == '' && unread == ''">
+                    <div class="text-center">No Notification.</div>
+                </v-list-item-content>
             </v-list>
         </v-menu>
     </div>

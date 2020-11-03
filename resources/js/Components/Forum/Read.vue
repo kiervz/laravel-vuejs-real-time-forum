@@ -15,7 +15,7 @@
             </replies>
             <new-reply 
                 :questionSlug="question.slug"
-                v-if="!isEdit"></new-reply>
+                v-if="!isEdit && loggedIn"></new-reply>
         </div>
     </div>
 </template>
@@ -37,6 +37,11 @@
         created() {
             this.getQuestion()
             this.listen()
+        },
+        computed: {
+            loggedIn() {
+                return User.loggedIn()
+            }
         },
         methods: {
             getQuestion() {

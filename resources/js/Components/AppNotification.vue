@@ -88,12 +88,11 @@
             getNotifications() {
                 axios.post('/api/notifications')
                     .then(({data}) => {
-                        console.log(data);
                         this.read = data.read
                         this.unread = data.unread
                         this.unreadCount = data.unread.length
                     })
-                    .catch(error => console.log(error.response.data))
+                    .catch(error => Exception.handle(error))
             },
             readIt(notification) {
                 axios.post('/api/markAsRead',{id:notification.id})

@@ -7,7 +7,8 @@ import Vuetify from "../plugins/vuetify"
 import User from './Helpers/User';
 window.User = User;
 
-console.log(User.loggedIn())
+import Exception from './Helpers/Exception';
+window.Exception = Exception;
 
 window.EventBus = new Vue();
 
@@ -43,7 +44,6 @@ const Toast = Swal.mixin({
 })
 
 window.Toast = Toast
-
 
 Vue.component('AppHome', require('./components/AppHome.vue').default);
 Vue.component('ShowQuestion', require('./components/Forum/ShowQuestion.vue').default);

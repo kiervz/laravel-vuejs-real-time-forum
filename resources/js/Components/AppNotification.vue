@@ -5,7 +5,7 @@
                 <v-btn icon v-bind="attrs" v-on="on">
                     <v-icon color="blue">
                         notifications
-                    </v-icon> {{ unreadCount }}
+                    </v-icon> <span v-if="unreadCount > 0">{{ unreadCount }}</span>
                 </v-btn>
             </template>
             <v-list width="320">
@@ -18,9 +18,9 @@
                                 <v-list-item-subtitle 
                                     class="blue--text" 
                                     @click="readIt(item)">
-                                    {{ item.replyBy + ' commented on your post: ' + item.reply }}
+                                    {{ item.replyBy + ' commented on your post: ' + item.body }}
                                 </v-list-item-subtitle>
-                                <div class="caption">November 1 at 4:32pm</div>
+                                <div class="caption grey--text">{{ item.created_at }}</div>
                             </router-link>
                         </v-list-item-content>
                     </v-list-item>
@@ -34,7 +34,7 @@
                                 :to="item.path" 
                                 class="text-decoration-none text-truncate">
                                 <v-list-item-subtitle>
-                                    {{ item.replyBy + ' commented on your post: ' + item.reply }}
+                                    {{ item.replyBy + ' commented on your post: ' + item.body }}
                                 </v-list-item-subtitle>
                                 <div class="caption grey--text">{{ item.created_at }}</div>
                             </router-link>
@@ -62,11 +62,33 @@
             if (User.loggedIn()) {
                 this.getNotifications()
             }
+
+            Echo.private('App.Models.User.' + User.id())
+                .notification((notification) => {
+                    this.unread.unshift(notification)
+                    this.unreadCount++
+                });
+
+            Echo.channel('deleteReplyChannel')
+                .listen('DeleteReplyEvent', (e) => {
+                    for (let index = 0; index < this.read.length; index++) {
+                        if (this.read[index].reply_id == e.id) {
+                            this.read.splice(index, 1)
+                        }
+                    }
+                    for (let index = 0; index < this.unread.length; index++) {
+                        if (this.unread[index].reply_id == e.id) {
+                            this.unread.splice(index, 1)
+                            this.unreadCount--
+                        }
+                    }
+                })
         },
         methods: {
             getNotifications() {
                 axios.post('/api/notifications')
                     .then(({data}) => {
+                        console.log(data);
                         this.read = data.read
                         this.unread = data.unread
                         this.unreadCount = data.unread.length
@@ -80,7 +102,7 @@
                         this.read.push(notification)
                         this.unreadCount--
                     })
-                    .catch()
+                    .catch(error => console.log(error.response.data))
             }
         }
     }

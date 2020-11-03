@@ -16,9 +16,9 @@ class NotificationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'replyBy' => $this->data['replyBy'],
-            'reply' => $this->data['reply'],
             'reply_id' => $this->data['reply_id'],
+            'replyBy' => $this->data['replyBy'],
+            'body' => $this->data['body'],
             'path' => $this->data['path'],
             'created_at' => $this->created_at->format('F j - h:i A')
         ];

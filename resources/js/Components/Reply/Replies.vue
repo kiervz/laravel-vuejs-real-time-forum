@@ -42,6 +42,24 @@
                         })
                         .catch(error => console.log(error.response.data))
                 })
+                
+                // Real time added new reply to the reply section
+                Echo.private('App.Models.User.' + User.id())
+                    .notification((notification) => {
+                        this.content.unshift(notification.reply)
+                        EventBus.$emit('plusReplyCount') 
+                    });
+
+                Echo.channel('deleteReplyChannel')
+                    .listen('DeleteReplyEvent', (e) => {
+                        for (let index = 0; index < this.content.length; index++) {
+                            if (this.content[index].id == e.id) {
+                                this.content.splice(index, 1)
+                                EventBus.$emit('minusReplyCount')
+                            }
+                        }
+                    })
+
             }
         }
     }

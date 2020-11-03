@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DeleteReplyEvent;
 use App\Models\Reply;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -87,12 +88,15 @@ class ReplyController extends Controller
     public function destroy(Question $question, Reply $reply)
     {
         $user = $question->user;
-        $user->notifications()
-        ->whereJsonContains('data', ['reply_id' => $reply->id])
-        ->first()
-        ->delete();
-
+        if ($reply->user_id !== $question->user_id) {
+            $user->notifications()
+            ->whereJsonContains('data', ['reply_id' => $reply->id])
+            ->first()
+            ->delete();
+        }
         $reply->delete();
+
+        broadcast(new DeleteReplyEvent($reply->id))->toOthers();
 
         return response()->json([
             'message' => 'Reply successfully deleted.'

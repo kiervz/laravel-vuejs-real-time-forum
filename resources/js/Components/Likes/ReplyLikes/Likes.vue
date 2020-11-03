@@ -19,6 +19,14 @@
                 return this.isLiked ? 'red' : 'dark'
             }
         },
+        created() {
+            Echo.channel('likeChannel')
+                .listen('LikeEvent', (e) => {
+                    if (e.id == this.data.id) {
+                        e.type == 1 ? this.count++ : this.count-- 
+                    }
+                });
+        },
         methods: {
             likeIt() {
                 if (User.loggedIn()) {

@@ -51,6 +51,9 @@
             }
         },
         created() {
+            if (!User.loggedIn()) {
+                this.$router.push('/');
+            }
             this.getCateogries()
         },
         methods: {

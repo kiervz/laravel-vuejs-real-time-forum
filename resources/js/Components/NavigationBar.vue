@@ -15,19 +15,17 @@
             <v-menu bottom min-width="200px" rounded offset-y  v-if="loggedIn">
                 <template v-slot:activator="{ on }">
                     <v-btn icon x-medium v-on="on">
-                        <v-avatar color="brown" size="35">
+                        <v-avatar color="brown" size="38">
                             <span class="white--text">KM</span>
                         </v-avatar>
                     </v-btn>
                 </template>
                 <v-card>
-                    <v-list-item>
-                        <v-list-item-content class="text-center">
-                            <router-link to="/logout" class="text-decoration-none black--text">
-                                Logout
-                            </router-link>
-                        </v-list-item-content>
-                    </v-list-item>
+                    <v-list-item-content>
+                        <div class="text-center">
+                            <v-btn text to="/logout">Log out</v-btn>
+                        </div>
+                    </v-list-item-content>
                 </v-card>
             </v-menu>
         </v-toolbar>

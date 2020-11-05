@@ -21,3 +21,8 @@ Broadcast::channel('likeChannel', function () {
     return true;
 });
 
+
+Broadcast::channel('deleteReplyChannel', function () {
+    return true;
+});
+

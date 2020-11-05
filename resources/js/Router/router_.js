@@ -12,7 +12,14 @@ const routes = [
     { path: '/category', name: 'category', component: require('../components/Category/CreateCategory.vue').default },
     { path: '/question/:slug', name: 'read', component: require('../components/Forum/Read.vue').default },
     { path: '/ask', name: 'ask', component: require('../components/Forum/CreateQuestion.vue').default },
+    { path: '/user/:id', name: 'user', component: require('../components/User/Profile.vue').default },
     { path: '/logout', name: 'logout', component: require('../components/auth/Logout.vue').default },
+    ,
+    {
+        path: '*',
+        name: 'NotFound',
+        component: require('../components/NotFound.vue').default
+    },
 ]
 
 

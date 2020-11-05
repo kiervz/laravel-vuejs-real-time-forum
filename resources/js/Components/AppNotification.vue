@@ -31,7 +31,7 @@
                     <v-list-item>
                         <v-list-item-content>
                             <router-link 
-                                :to="item.path" 
+                                :to="{ path: '/' + item.path }" 
                                 class="text-decoration-none text-truncate">
                                 <v-list-item-subtitle>
                                     {{ item.replyBy + ' commented on your post: ' + item.body }}

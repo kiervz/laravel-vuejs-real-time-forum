@@ -72,4 +72,9 @@ class User extends Authenticatable implements JWTSubject
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function getPathAttribute()
+    {
+        return "/user/$this->id";
+    }
 }

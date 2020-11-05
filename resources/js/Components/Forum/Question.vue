@@ -2,7 +2,7 @@
     <v-card class="mx-auto mt-3">
         <v-list-item-content class="pl-4 pt-10 pr-4 pb-5">
             <div class=" mb-4">
-                <router-link :to="question.path" class="text-decoration-none text-h6">
+                <router-link :to="{ path : '/' + question.path }" class="text-decoration-none text-h6">
                     {{ question.title }}
                 </router-link>
             </div>
@@ -12,7 +12,7 @@
             </v-list-item-subtitle>
             
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <v-chip
                         :ripple="false"
                         color="grey"
@@ -22,11 +22,11 @@
                         {{ question.category }}
                     </v-chip>
                 </div>
-                <div class="col-md-4">
+                <div v-show="inProfile" class="col-md-3">
                     <div class="grey--text mb-0 caption">{{ 'Asked ' + question.created_at }}</div>
                     <div class="mt-0 mb-0">
-                        <router-link :to="question.user" class="text-decoration-none">
-                            {{ question.user }}
+                        <router-link :to="question.user_path" class="text-decoration-none">
+                            {{ question.user_name }}
                         </router-link>
                     </div>
                 </div>
@@ -37,6 +37,16 @@
 
 <script>
     export default {
-        props: ['question']
+        props: ['question'],
+        data() {
+            return {
+                inProfile: false,
+            }
+        },
+        created() {
+            EventBus.$on('inProfile', () => {
+                this.inProfile = true
+            })
+        }
     }
 </script>

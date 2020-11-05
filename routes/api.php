@@ -22,6 +22,8 @@ Route::apiResource('/question/{question}/reply', 'ReplyController');
 Route::post('/like/{reply}', 'LikeController@likeIt')->name('like');
 Route::delete('/like/{reply}', 'LikeController@unLikeIt')->name('unlike');
 
+Route::post('user/{id}', 'UserController@show');
+
 Route::post('notifications', 'NotificationController@index');
 Route::post('markAsRead', 'NotificationController@markAsRead');
 

@@ -69,13 +69,19 @@
                 this.beforeEditReplyBody = this.data.body
             },
             listen() {
-                EventBus.$on('cancelUpdate', (reply) => {
+                EventBus.$on('cancelUpdate', () => {
                     this.isEdit = false
-                    if (!reply == this.data.reply) {
-                        this.data.body = this.beforeEditReplyBody
+                    this.data.body = this.beforeEditReplyBody
+                })
+                
+                EventBus.$on('newUpdate', (reply) => {
+                    this.isEdit = false
+                    if (reply !== this.data.reply) {
+                        this.data.reply = this.beforeEditReplyBody
                         this.beforeEditReplyBody = ''
                     }
                 })
+                
             },
         }
     }

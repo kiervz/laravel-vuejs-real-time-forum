@@ -26,3 +26,7 @@ Broadcast::channel('deleteReplyChannel', function () {
     return true;
 });
 
+Broadcast::channel('updateReplyChannel', function () {
+    return true;
+});
+

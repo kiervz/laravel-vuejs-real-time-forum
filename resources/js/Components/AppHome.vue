@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <v-toolbar dense dark fixed>
+    <v-app>
+        <v-app-bar app dense dark fixed>
             <v-app-bar-nav-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
             <v-toolbar-title>Stack Underflow</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -16,7 +16,7 @@
                 <template v-slot:activator="{ on }">
                     <v-btn icon x-medium v-on="on">
                         <v-avatar color="primary" size="35">
-                            <span class="white--text">KM</span>
+                            <span class="white--text">S</span>
                         </v-avatar>
                     </v-btn>
                 </template>
@@ -30,27 +30,28 @@
                     </v-list-item>
                 </v-card>
             </v-menu>
-        </v-toolbar>
+        </v-app-bar>
         <v-navigation-drawer
             v-model="drawer"
             fixed
+            dark
             temporary>
             <div v-for="(item, index) in items" :key="index" >
                 <v-btn text block :to="item.to" v-if="item.show">{{ item.title }}</v-btn>
             </div>
         </v-navigation-drawer>
+        <br><br>
         <router-view></router-view>
         <app-footer></app-footer>
-    </div>
+    </v-app>
 </template>
 
 <script>
-    import NavigationBar from './NavigationBar'
     import AppFooter from './AppFooter'
     import AppNotification from './AppNotification'
 
     export default {
-        components: {NavigationBar, AppFooter, AppNotification},
+        components: { AppFooter, AppNotification},
         data() {
             return {
                 items: [

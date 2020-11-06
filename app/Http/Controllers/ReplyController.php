@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\DeleteReplyEvent;
 use App\Models\Reply;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use App\Events\DeleteReplyEvent;
+use App\Events\UpdateReplyEvent;
 use App\Http\Resources\ReplyResource;
 use App\Notifications\NewReplyNotification;
 
@@ -73,6 +74,8 @@ class ReplyController extends Controller
     public function update(Question $question, Request $request, Reply $reply)
     {
         $reply->update($request->all());
+        
+        event(new UpdateReplyEvent($reply));
 
         return response()->json([ 
             'message' => 'Reply successfully updated.'

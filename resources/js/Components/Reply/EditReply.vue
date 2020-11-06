@@ -15,12 +15,17 @@
     export default {
         props: ['reply'],
         methods: {
-            cancel(reply) {
-                EventBus.$emit('cancelUpdate', reply)
+            cancel() {
+                EventBus.$emit('cancelUpdate')
+            },
+            newUpdate(reply) {
+                EventBus.$emit('newUpdate', reply)
             },
             update() {
-                axios.put(`/api/question/${this.reply.question_slug}/reply/${this.reply.id}`, {body:this.reply.body})
-                    .then(res => this.cancel(this.reply.body))
+                axios.patch(`/api/question/${this.reply.question_slug}/reply/${this.reply.id}`, {body:this.reply.body})
+                    .then(res => {
+                        this.newUpdate(this.reply.body)
+                    })
                     .catch(error => console.log(error.response.data))
             }
         }

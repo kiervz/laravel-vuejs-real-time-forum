@@ -23,7 +23,7 @@
                 content: this.question.replies,
             }
         },
-        created() {
+        mounted() {
             this.listen();
         },
         methods: {
@@ -33,7 +33,7 @@
                     window.scrollTo(0,0)
                     EventBus.$emit('plusReplyCount') 
                 })
-
+                
                 EventBus.$on('deleteReply', (index) => {
                     axios.delete(`/api/question/${this.question.slug}/reply/${this.content[index].id}`)
                         .then(res => {
@@ -49,7 +49,7 @@
                         this.content.unshift(notification.reply)
                         EventBus.$emit('plusReplyCount') 
                     });
-
+                
                 Echo.channel('deleteReplyChannel')
                     .listen('DeleteReplyEvent', (e) => {
                         for (let index = 0; index < this.content.length; index++) {
@@ -59,7 +59,15 @@
                             }
                         }
                     })
-
+                
+                Echo.channel('updateReplyChannel')
+                    .listen('UpdateReplyEvent', (e) => {
+                        for (let index = 0; index < this.content.length; index++) {
+                            if (this.content[index].id == e.reply.id) {
+                                this.content[index].body = e.reply.body;
+                            }
+                        }
+                    })
             }
         }
     }

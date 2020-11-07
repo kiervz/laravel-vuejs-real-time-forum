@@ -58,7 +58,7 @@
         text-overflow: ellipsis;
         word-wrap: break-word;
         overflow: hidden;
-   -webkit-line-clamp: 2; /* number of lines to show */
-   -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
     }
 </style>

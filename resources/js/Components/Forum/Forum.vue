@@ -21,6 +21,23 @@
                         :question=question
                     >
                     </question>
+                    <div class="text-center">
+                        <v-container>
+                            <v-row justify="center">
+                                <v-col cols="8">
+                                    <v-container class="max-width">
+                                        <v-pagination
+                                        v-model="meta.current_page"
+                                        class="my-4"
+                                        :length="meta.last_page"
+                                        @input="fetchQuestions"
+                                        ></v-pagination>
+                                    </v-container>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </div>
+                    <br>
                 </v-flex>
                 <v-flex md4>
                     <app-side-bar></app-side-bar>
@@ -41,19 +58,23 @@
             return {
                 questions: {},
                 countQuestions: 0,
+                meta: {},
             }
         },
         created() {
-            this.getAllQuestions();
+            this.fetchQuestions();
         },
         methods: {
-            getAllQuestions() {
+            fetchQuestions(page) {
+                let url = page ? `api/question?page=${page}` : 'api/question'
                 this.$Progress.start()
-                axios.get('api/question')
+                axios.get(url)
                     .then(res => {
                         this.questions = res.data.data;
-                        this.countQuestions = this.questions.length;
+                        this.meta = res.data.meta;
+                        this.countQuestions = res.data.meta.total;
                         this.$Progress.finish()
+                        window.scrollTo(0,0)
                     })
                     .catch(error => {
                         error.response.data

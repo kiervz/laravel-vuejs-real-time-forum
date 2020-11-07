@@ -4,7 +4,7 @@
             <v-flex md11>
                 <div class="ml-4">
                     <router-link 
-                        :to="data.user" 
+                        :to="data.user_path" 
                         class="text-decoration-none">{{ data.user }}
                     </router-link>
                     <span class="grey--text caption">{{ data.created_at }}</span>

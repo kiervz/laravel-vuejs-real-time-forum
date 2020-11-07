@@ -15,17 +15,21 @@
                 <div class="col-md-9">
                     <v-chip
                         :ripple="false"
-                        color="grey"
-                        label
-                        text-color="white"
-                        >
+                        color="teal darken-1"
+                        text-color="white">
+                        {{ question.reply_count > 1 ? question.reply_count + ' answers': question.reply_count + ' answer' }}
+                    </v-chip>
+                    <v-chip
+                        :ripple="false"
+                        color="blue lighten-2"
+                        text-color="white">
                         {{ question.category }}
                     </v-chip>
                 </div>
                 <div class="col-md-3">
                     <div class="grey--text mb-0 caption">{{ 'Asked ' + question.created_at }}</div>
                     <div>
-                        <router-link :to="question.user_path" class="text-decoration-none">
+                        <router-link :to="question.user_path" class="text-decoration-none" color="blue darken-1">
                             {{ question.user_name }}
                         </router-link>
                     </div>

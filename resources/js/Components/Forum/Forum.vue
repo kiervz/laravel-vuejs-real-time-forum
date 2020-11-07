@@ -24,14 +24,15 @@
                     <div class="text-center">
                         <v-container>
                             <v-row justify="center">
-                                <v-col cols="8">
+                                <v-col cols="10">
                                     <v-container class="max-width">
                                         <v-pagination
-                                        v-model="meta.current_page"
-                                        class="my-4"
-                                        :length="meta.last_page"
-                                        @input="fetchQuestions"
-                                        ></v-pagination>
+                                            v-model="meta.current_page"
+                                            class="my-4"
+                                            :length="meta.last_page"
+                                            @input="fetchQuestions"
+                                            :total-visible="7">
+                                        </v-pagination>
                                     </v-container>
                                 </v-col>
                             </v-row>

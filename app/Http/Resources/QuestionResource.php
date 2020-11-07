@@ -27,6 +27,7 @@ class QuestionResource extends JsonResource
             'user_name' => $this->user->name,
             'user_path' => $this->user->path,
             'created_at' => $this->created_at->diffForHumans(),
+            'created_at_r' => $this->created_at->format('M j, Y - G:i')
         ];
     }
 }

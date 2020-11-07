@@ -8,6 +8,7 @@
                     size="100"
                 ><span class="white--text headline">KM</span></v-avatar>
                 <h2>{{ profile.name }}</h2>
+                <br>
             </div>
         </v-card>
         

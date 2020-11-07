@@ -33,6 +33,14 @@
                     </div>
                     <div class="col-md-10 text-justify">
                         <p v-html="body"></p>
+                        <div class="float-right">
+                            <div class="grey--text caption">
+                                Asked <span class="text--primary">{{ question.created_at_r }}</span>
+                            </div>
+                            <router-link :to="question.user_path" class="text-decoration-none float-right">
+                                {{ question.user_name }}
+                            </router-link>
+                        </div>
                     </div>
                 </v-row>
             </v-flex>

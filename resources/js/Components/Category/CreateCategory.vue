@@ -59,13 +59,20 @@
             if (!User.admin()) {
                 this.$router.push('/');
             }
-            this.loadCategories();
+            this.fetchCategories();
         },
         methods: {
-            loadCategories() {
+            fetchCategories() {
+                this.$Progress.start()
                 axios.get('api/category')
-                    .then(res => this.categories = res.data.data)
-                    .catch(error => error.response.data)
+                    .then(res => {
+                        this.categories = res.data.data
+                        this.$Progress.finish()
+                    })
+                    .catch(error => {
+                        error.response.data
+                        this.$Progress.fail()
+                    })
             },
             submit() {
                 this.editSlug ? this.update() : this.create();

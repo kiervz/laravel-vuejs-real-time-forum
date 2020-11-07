@@ -58,11 +58,16 @@
         },
         methods: {
             createQuestion() {
+                this.$Progress.start()
                 axios.post('/api/question', this.form)
                     .then(res => {
                         this.$router.push(res.data[0].path);
+                        this.$Progress.finish()
                     })
-                    .catch(error => console.log(error.response.data))
+                    .catch(error => {
+                        console.log(error.response.data)
+                        this.$Progress.fail()
+                    })
             },
             getCateogries() {
                 axios.get('/api/category')

@@ -25,7 +25,7 @@
                             color="primary"
                             @click="signup"
                             block>
-                            Login
+                            Signup
                         </v-btn>
                         <div class="mt-5 text-center">
                             Already have an Account? <router-link to="/login" class="text-decoration-none">Login</router-link>
@@ -82,13 +82,17 @@
         created() {
             if(User.loggedIn()) {
                 this.$router.push({ name: 'forum'});
-            }
+            }   
         },
         methods: {
             signup() {
                 axios.post('api/auth/signup', this.form)
                     .then(res => {
-                        User.responseAfterLogin(res);
+                         Toast.fire({
+                            icon: 'success',
+                            title: res.data.message
+                        });
+                        this.$router.push({ name: 'login'});
                     })
                     .catch(error => this.errors = error.response.data.errors)
             }

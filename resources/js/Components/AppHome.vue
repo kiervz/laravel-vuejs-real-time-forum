@@ -21,13 +21,27 @@
                     </v-btn>
                 </template>
                 <v-card>
-                    <v-list-item>
-                        <v-list-item-content class="text-center">
-                            <router-link to="/logout" class="text-decoration-none black--text">
-                                Logout
-                            </router-link>
-                        </v-list-item-content>
-                    </v-list-item>
+                    <v-list>
+                        <v-list-item-group>
+                            <v-list-item>
+                                <v-list-item-content>
+                                    <v-list-item-title  class="text-center">
+                                        <router-link :to="this.loggedInUserPath" class="text-decoration-none black--text">
+                                        <v-icon>person</v-icon>{{ loggedInUser }}</router-link>
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-list-item-content class="text-center">
+                                    <v-list-item-title>
+                                        <router-link to="/logout" class="text-decoration-none black--text">
+                                            Logout
+                                        </router-link>
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list-item-group>
+                    </v-list>
                 </v-card>
             </v-menu>
         </v-app-bar>
@@ -61,6 +75,8 @@
                     { title: 'Login', to: '/login', show: !User.loggedIn() },
                 ],
                 loggedIn: User.loggedIn(),
+                loggedInUser: User.name(),
+                loggedInUserPath: null,
                 drawer: null,
             }
         },
@@ -68,6 +84,18 @@
             EventBus.$on('logout', () => {
                 User.logOut();
             })
+            if (User.loggedIn()) {
+                this.getUserPath()
+            }
+        },
+        methods: {
+            getUserPath(){
+                axios.post(`/api/user/${ User.id() }`)
+                    .then((res) => {
+                        this.loggedInUserPath = res.data.user.user_path
+                    })
+                    .catch(error => console.log(error.response.data))
+            }
         }
     }   
 </script>

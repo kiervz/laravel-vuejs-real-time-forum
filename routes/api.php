@@ -15,27 +15,27 @@ use Illuminate\Support\Facades\Route;
 |
 */  
 
-Route::apiResource('/question', 'QuestionController');  
-Route::apiResource('/category', 'CategoryController');  
-Route::apiResource('/question/{question}/reply', 'ReplyController');
+Route::apiResource('/question', 'API\QuestionController');  
+Route::apiResource('/category', 'API\CategoryController');  
+Route::apiResource('/question/{question}/reply', 'API\ReplyController');
 
-Route::post('/like/{reply}', 'LikeController@likeIt')->name('like');
-Route::delete('/like/{reply}', 'LikeController@unLikeIt')->name('unlike');
+Route::post('/like/{reply}', 'API\LikeController@likeIt')->name('like');
+Route::delete('/like/{reply}', 'API\LikeController@unLikeIt')->name('unlike');
 
-Route::post('user/{id}', 'UserController@show');
+Route::post('user/{id}', 'API\UserController@show');
 
-Route::post('notifications', 'NotificationController@index');
-Route::post('markAsRead', 'NotificationController@markAsRead');
+Route::post('notifications', 'API\NotificationController@index');
+Route::post('markAsRead', 'API\NotificationController@markAsRead');
 
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
 
-    Route::post('login', 'AuthController@login')->name('login');
-    Route::post('signup', 'AuthController@signup')->name('signup');
-    Route::post('logout', 'AuthController@logout')->name('logout');
-    Route::post('refresh', 'AuthController@refresh')->name('refresh');
-    Route::post('me', 'AuthController@me')->name('me');
+    Route::post('login', 'API\AuthController@login')->name('login');
+    Route::post('signup', 'API\AuthController@signup')->name('signup');
+    Route::post('logout', 'API\AuthController@logout')->name('logout');
+    Route::post('refresh', 'API\AuthController@refresh')->name('refresh');
+    Route::post('me', 'API\AuthController@me')->name('me');
 
 });

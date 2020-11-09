@@ -9,6 +9,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Question extends Model
 {
     use HasFactory;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function ($question) {
+           $question->tags->each->delete();
+           $question->replies->each->delete();
+        });
+
+    }
     
     protected $fillable = ['title','slug','body','user_id','tag_id'];
 
@@ -23,10 +34,10 @@ class Question extends Model
     {
         return $this->hasMany(Reply::class)->latest();
     }
-
-    public function tag()
+    
+    public function tags()
     {
-        return $this->belongsTo(Tag::class);
+        return $this->hasMany(TagsQuestion::class);
     }
     
     public function getRouteKeyName()

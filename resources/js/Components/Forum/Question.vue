@@ -22,8 +22,9 @@
                     <v-chip
                         :ripple="false"
                         color="blue lighten-2"
-                        text-color="white">
-                        {{ question.tag }}
+                        text-color="white"
+                        v-for="tag in question.tags" :key="tag.id">
+                        {{ tag.tag_name }} 
                     </v-chip>
                 </div>
                 <div class="col-md-3" v-if="!inprofile">

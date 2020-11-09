@@ -72,6 +72,7 @@
                 axios.get(url)
                     .then(res => {
                         this.questions = res.data.data;
+                        console.log(this.questions);
                         this.meta = res.data.meta;
                         this.countQuestions = res.data.meta.total;
                         this.$Progress.finish()

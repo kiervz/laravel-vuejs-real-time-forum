@@ -5,9 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Models\Question;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\QuestionRequest;
 use App\Http\Resources\QuestionResource;
+use App\Models\TagsQuestion;
 
 class QuestionController extends Controller
 {
@@ -41,8 +41,14 @@ class QuestionController extends Controller
     public function store(QuestionRequest $request)
     {  
         $request['slug'] = $this->uniqueSlug($request['title']);
-        // $request['slug'] = Str::slug($request->title);
-        $question = auth()->user()->questions()->create($request->all());
+        $tags = $request['tag_id'];
+        $question = auth()->user()->questions()->create($request->except('tag_id'));
+
+        $question_tags = [];
+        foreach($tags as $tag) {
+            array_push($question_tags, ['tag_id' => $tag, 'question_id' => $question->id]);
+        }
+        TagsQuestion::insert($question_tags);
 
         return response()->json([
             new QuestionResource($question)

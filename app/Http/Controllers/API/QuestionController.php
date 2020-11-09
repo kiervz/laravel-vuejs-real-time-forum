@@ -40,12 +40,20 @@ class QuestionController extends Controller
      */
     public function store(QuestionRequest $request)
     {  
-        $request['slug'] = Str::slug($request->title);
+        $request['slug'] = $this->uniqueSlug($request['title']);
+        // $request['slug'] = Str::slug($request->title);
         $question = auth()->user()->questions()->create($request->all());
 
         return response()->json([
             new QuestionResource($question)
         ]);
+    }
+
+    private function uniqueSlug($title) {
+        $slug = Str::slug($title, '-');
+        $count = Question::where('slug', 'LIKE', "{$slug}%")->count();
+        $newCount = $count > 0 ? ++$count : '';
+        return $newCount > 0 ? "$slug-$newCount" : $slug;
     }
 
     /**

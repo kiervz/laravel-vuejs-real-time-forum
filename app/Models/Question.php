@@ -10,7 +10,7 @@ class Question extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['title','slug','body','user_id','category_id'];
+    protected $fillable = ['title','slug','body','user_id','tag_id'];
 
     protected $with = ['replies'];
     
@@ -24,9 +24,9 @@ class Question extends Model
         return $this->hasMany(Reply::class)->latest();
     }
 
-    public function category()
+    public function tag()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Tag::class);
     }
     
     public function getRouteKeyName()

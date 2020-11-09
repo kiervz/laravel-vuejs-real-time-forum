@@ -3,7 +3,7 @@
         <v-form @submit.prevent="submit">
             <v-text-field
                 v-model="form['name']"
-                label="Category*"
+                label="Tag*"
                 required
             ></v-text-field>
             <v-btn v-if="editSlug" type="submit" color="purple">Update</v-btn>
@@ -16,14 +16,14 @@
         <br>
         <v-card class="mx-auto">
             <v-toolbar dark dense>
-                <v-toolbar-title>Categories</v-toolbar-title>
+                <v-toolbar-title>Tags</v-toolbar-title>
             </v-toolbar>
             <v-list>
-                <div v-for="(category, index) in categories" :key="category.id">
+                <div v-for="(tag, index) in tags" :key="tag.id">
                     <v-list-item>
                         <v-list-item-content>
                             <v-list-item-title>
-                                    {{ category.name }}
+                                    {{ tag.name }}
                             </v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-action>
@@ -32,7 +32,7 @@
                             </v-btn>
                         </v-list-item-action>
                         <v-list-item-action>
-                            <v-btn icon small @click="destroy(category.slug)">
+                            <v-btn icon small @click="destroy(tag.slug)">
                                 <v-icon color="red">delete</v-icon>
                             </v-btn>
                         </v-list-item-action>
@@ -51,7 +51,7 @@
                 form : {
                     name:null
                 },
-                categories: {},
+                tags: {},
                 editSlug: null,
             }
         },
@@ -59,14 +59,14 @@
             if (!User.admin()) {
                 this.$router.push('/');
             }
-            this.fetchCategories();
+            this.fetchTags();
         },
         methods: {
-            fetchCategories() {
+            fetchTags() {
                 this.$Progress.start()
-                axios.get('api/category')
+                axios.get('api/tag')
                     .then(res => {
-                        this.categories = res.data.data
+                        this.tags = res.data.data
                         this.$Progress.finish()
                     })
                     .catch(error => {
@@ -88,9 +88,9 @@
                     confirmButtonText: 'Yes, create it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        axios.post('/api/category', this.form)
+                        axios.post('/api/tag', this.form)
                             .then(res => { 
-                                this.categories.unshift(res.data);
+                                this.tags.unshift(res.data);
                                 this.form.name = null;
                                 Toast.fire({
                                     icon: res.data.status,
@@ -112,9 +112,9 @@
                     confirmButtonText: 'Yes, update it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        axios.put(`/api/category/${this.editSlug}`, this.form)
+                        axios.put(`/api/tag/${this.editSlug}`, this.form)
                             .then(res => { 
-                                this.loadCategories();
+                                this.fetchTags();
                                 this.editSlug = null;
                                 this.form.name = null;
                                 Toast.fire({
@@ -127,8 +127,8 @@
                 })
             },
             edit(index) {
-                this.editSlug = this.categories[index].slug;
-                this.form.name = this.categories[index].name;
+                this.editSlug = this.tags[index].slug;
+                this.form.name = this.tags[index].name;
             },
             destroy(slug, index) {
                 Swal.fire({
@@ -141,9 +141,9 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        axios.delete(`/api/category/${slug}`)
+                        axios.delete(`/api/tag/${slug}`)
                             .then(res => { 
-                                this.categories.splice(index, 1)
+                                this.tags.splice(index, 1)
                                 Toast.fire({
                                     icon: res.data.status,
                                     title: res.data.message
@@ -154,7 +154,7 @@
                 })
             },
             cancel() {
-                this.loadCategories();
+                this.loadTags();
                 this.editSlug = null;
                 this.form.name = null;
             }

@@ -25,7 +25,7 @@ class QuestionRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:150',
-            'category_id' => 'required',
+            'tag_id' => 'required',
             'body' => 'required',
         ];
     }

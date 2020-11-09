@@ -20,6 +20,7 @@
                         v-for="question in questions" 
                         :key="question.id"
                         :question=question
+                        :inprofile=true
                     >
                     </question>
                 </v-card>
@@ -43,9 +44,6 @@
         },
         mounted() {
             this.getUser()
-        },
-        created() {
-            EventBus.$emit('inProfile');
         },
         methods: {
             getUser() {

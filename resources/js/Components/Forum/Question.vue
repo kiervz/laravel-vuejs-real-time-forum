@@ -23,10 +23,10 @@
                         :ripple="false"
                         color="blue lighten-2"
                         text-color="white">
-                        {{ question.category }}
+                        {{ question.tag }}
                     </v-chip>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" v-if="!inprofile">
                     <div class="grey--text mb-0 caption">{{ 'Asked ' + question.created_at }}</div>
                     <div>
                         <router-link :to="question.user_path" class="text-decoration-none" color="blue darken-1">
@@ -41,19 +41,11 @@
 
 <script>
     export default {
-        props: ['question'],
+        props: ['question', 'inprofile'],
         data() {
             return {
-                inProfile: false,
             }
         },
-        created() {
-            this.inProfile= false,
-
-            EventBus.$on('inProfile', () => {
-                this.inProfile = true
-            })
-        }
     }
 </script>
 <style>

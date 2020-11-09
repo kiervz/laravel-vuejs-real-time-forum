@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Question;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,8 +29,8 @@ class QuestionFactory extends Factory
         'title' => $title,
         'slug' => Str::slug($title),
         'body' => $this->faker->realText(500),
-        'category_id' => function() {
-            return Category::all()->random();
+        'tag_id' => function() {
+            return Tag::all()->random();
         },
         'user_id' => function() {
             return User::all()->random();

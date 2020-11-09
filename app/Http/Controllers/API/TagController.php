@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\TagResource;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
 
     /**
-     * Create a new CategoryController instance.
+     * Create a new TagController instance.
      *
      * @return void
      */
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return CategoryResource::collection(Category::latest()->get());
+        return TagResource::collection(Tag::latest()->get());
     }
 
     /**
@@ -39,57 +39,57 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request['slug'] = Str::slug($request->name);
-        $category = Category::create($request->all());
+        $tag = Tag::create($request->all());
         
         return response()->json([
-            'name' => $category->name,
+            'name' => $tag->name,
             'status' => 'success',
-            'message' => 'Category successfully added.'
+            'message' => 'Tag successfully added.'
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $Tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Tag $tag)
     {
-        return new CategoryResource($category);
+        return new TagResource($tag);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $Tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Tag $tag)
     {
         $request['slug'] = Str::slug($request->name);
-        $category->update($request->all());
+        $tag->update($request->all());
         
         return response()->json([
             'status' => 'success',
-            'message' => 'Category successfully updated.'
+            'message' => 'Tag successfully updated.'
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Tag  $Tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Tag $tag)
     {
-        $category->delete();
+        $tag->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Category successfully deleted.'
+            'message' => 'Tag successfully deleted.'
         ]);
     }
 }

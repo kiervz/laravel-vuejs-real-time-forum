@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */  
 
 Route::apiResource('/question', 'API\QuestionController');  
-Route::apiResource('/category', 'API\CategoryController');  
+Route::apiResource('/tag', 'API\TagController');  
 Route::apiResource('/question/{question}/reply', 'API\ReplyController');
 
 Route::post('/like/{reply}', 'API\LikeController@likeIt')->name('like');

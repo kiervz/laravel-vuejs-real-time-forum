@@ -1,13 +1,13 @@
 <template>
     <v-card class="mx-auto ml-2">
         <v-toolbar dark dense>
-            <v-toolbar-title>Categories</v-toolbar-title>
+            <v-toolbar-title>Tags</v-toolbar-title>
         </v-toolbar>
         <v-list>
-            <v-list-item v-for="category in categories" :key="category.id">
+            <v-list-item v-for="tag in tags" :key="tag.id">
                 <v-list-item-content>
                     <v-list-item-title>
-                        {{ category.name }}
+                        {{ tag.name }}
                     </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
@@ -19,12 +19,12 @@
     export default {
         data() {
            return {
-               categories: {}
+               tags: {}
            }
         },
         created() {
-            axios.get('api/category')
-                .then(res => { this.categories = res.data.data })
+            axios.get('api/tag')
+                .then(res => { this.tags = res.data.data })
                 .catch(error => { error.response.data })
         }
     }

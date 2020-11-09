@@ -11,14 +11,16 @@
                     label="Title"
                     required
                 ></v-text-field>
-                <v-select
-                    v-model="form['category_id']"
-                    :items="categories"
+                <v-autocomplete
+                    v-model="form['tag_id']"
+                    :items="tags"
                     item-text="name"
                     item-value="id"
-                    label="Category"
+                    label="Tags"
                     required
-                ></v-select>
+                    multiple
+                    chips
+                ></v-autocomplete>
                 
                 <vue-simplemde v-model="form['body']" name="body" id="body"/>
 
@@ -44,9 +46,9 @@
                 form: {
                     title: null,
                     body: null,
-                    category_id: null,
+                    tag_id: [],
                 },
-                categories: [],
+                tags: [],
                 errors: {}
             }
         },
@@ -54,7 +56,7 @@
             if (!User.loggedIn()) {
                 this.$router.push('/');
             }
-            this.getCateogries()
+            this.getTags()
         },
         methods: {
             createQuestion() {
@@ -69,9 +71,9 @@
                         this.$Progress.fail()
                     })
             },
-            getCateogries() {
-                axios.get('/api/category')
-                    .then(res => {this.categories = res.data.data})
+            getTags() {
+                axios.get('/api/tag')
+                    .then(res => {this.tags = res.data.data})
                     .catch(error => console.log(error.response.data))
             }
         }

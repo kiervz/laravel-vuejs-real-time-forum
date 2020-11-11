@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Reply;
 use App\Models\Tag;
 use App\Models\Question;
+use App\Models\TagsQuestion;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Tag::factory(5)->create();
         Question::factory(50)->create();
+        TagsQuestion::factory(100)->create();
         Reply::factory(50)->create()->each(function ($reply) {
             return $reply->like()->save(Like::factory()->make());
         });

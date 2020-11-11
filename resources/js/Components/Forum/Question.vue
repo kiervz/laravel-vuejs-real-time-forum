@@ -2,7 +2,7 @@
     <v-card class="mx-auto mt-3">
         <v-list-item-content class="pl-4 pt-10 pr-4 pb-5">
             <div class="mb-4">
-                <router-link :to="{ path : '/' + question.path }" class="text-decoration-none text-h6">
+                <router-link :to="question.path" class="text-decoration-none text-h6">
                     {{ question.title }}
                 </router-link>
             </div>
@@ -21,9 +21,10 @@
                     </v-chip>
                     <v-chip
                         :ripple="false"
-                        color="blue lighten-2"
+                        color="blue lighten-1"
                         text-color="white"
-                        v-for="tag in question.tags" :key="tag.id">
+                        v-for="tag in question.tags" :key="tag.id"
+                        class="ml-1">
                         {{ tag.tag_name }} 
                     </v-chip>
                 </div>
@@ -47,6 +48,11 @@
             return {
             }
         },
+        computed: {
+            body() {
+                return md.parse(this.question.body);
+            }
+        }
     }
 </script>
 <style>

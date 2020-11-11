@@ -2,7 +2,9 @@
     <v-app>
         <v-app-bar app dense dark fixed>
             <v-app-bar-nav-icon @click="drawer = !drawer" class="hidden-md-and-up"></v-app-bar-nav-icon>
-            <v-toolbar-title>Stack Underflow</v-toolbar-title>
+            <v-toolbar-title>
+                <router-link to="/" class="text-decoration-none white--text">Stack Underflow</router-link>
+            </v-toolbar-title>
             <v-spacer></v-spacer>
             <app-notification v-if="loggedIn"></app-notification>
             <v-toolbar-items class="hidden-sm-and-down" v-for="item in items" :key="item.title">
@@ -25,19 +27,16 @@
                         <v-list-item-group>
                             <v-list-item>
                                 <v-list-item-content>
-                                    <v-list-item-title  class="text-center">
-                                        <router-link :to="this.loggedInUserPath" class="text-decoration-none black--text">
-                                        <v-icon>person</v-icon>{{ loggedInUser }}</router-link>
-                                    </v-list-item-title>
+                                    <router-link :to="this.loggedInUserPath" class="text-decoration-none black--text">
+                                        <v-icon>person</v-icon>{{ loggedInUser }}
+                                    </router-link>
                                 </v-list-item-content>
                             </v-list-item>
                             <v-list-item>
                                 <v-list-item-content class="text-center">
-                                    <v-list-item-title>
-                                        <router-link to="/logout" class="text-decoration-none black--text">
-                                            Logout
-                                        </router-link>
-                                    </v-list-item-title>
+                                    <router-link :to="{ path: '/logout' }" class="text-decoration-none black--text">
+                                        Logout
+                                    </router-link>
                                 </v-list-item-content>
                             </v-list-item>
                         </v-list-item-group>
@@ -69,7 +68,7 @@
         data() {
             return {
                 items: [
-                    { title: 'Forum', to: '/', show: true },
+                    { title: 'Forum', to: '/forum', show: true },
                     { title: 'Ask Question', to: '/ask', show: User.loggedIn() },
                     { title: 'Tag', to: '/tag', show: User.admin() },
                     { title: 'Login', to: '/login', show: !User.loggedIn() },

@@ -13,12 +13,12 @@
                     <v-list-item>
                         <v-list-item-content>
                             <router-link 
-                                :to="{ path: '/' + item.path }" 
+                                :to="{path: '/' + item.path}" 
                                 class="text-decoration-none text-truncate">
                                 <v-list-item-subtitle 
                                     class="blue--text" 
                                     @click="readIt(item)">
-                                    {{ item.replyBy + ' commented on your post: ' + item.body }}
+                                        {{ item.replyBy + ' commented on your post: ' + item.body }}
                                 </v-list-item-subtitle>
                                 <div class="caption grey--text">{{ item.created_at }}</div>
                             </router-link>
@@ -31,7 +31,7 @@
                     <v-list-item>
                         <v-list-item-content>
                             <router-link 
-                                :to="{ path: '/' + item.path }" 
+                                :to="{path: '/' + item.path}" 
                                 class="text-decoration-none text-truncate">
                                 <v-list-item-subtitle>
                                     {{ item.replyBy + ' commented on your post: ' + item.body }}

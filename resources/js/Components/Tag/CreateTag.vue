@@ -154,7 +154,6 @@
                 })
             },
             cancel() {
-                this.loadTags();
                 this.editSlug = null;
                 this.form.name = null;
             }

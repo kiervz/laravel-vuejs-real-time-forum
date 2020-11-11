@@ -82,9 +82,25 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        $question->update($request->all());
+        $question_id = $question->id;
+        $tag_ids = $request['tag_id'];
+        if ($request['title'] !== $question->title) {
+            $request['slug'] = $this->uniqueSlug($request['title']);
+        }
+        $question_slug = $request['slug'];
+        $question->update($request->except('tag_id'));
+
+        $tags_questions = TagsQuestion::where('question_id', '=', $question_id);
+        $tags_questions->delete();
+
+        $question_tags = [];
+        foreach($tag_ids as $id) {
+            array_push($question_tags, ['tag_id' => $id, 'question_id' => $question_id]);
+        }
+        TagsQuestion::insert($question_tags);
         
         return response()->json([
+            'question_slug' => $question_slug,
             'status' => 'success',
             'message' => 'Question successfully updated.'
         ]);

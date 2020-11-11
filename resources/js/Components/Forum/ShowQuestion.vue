@@ -119,6 +119,10 @@
                 EventBus.$on('minusReplyCount', () => {
                     this.reply_count -= 1
                 })
+
+                EventBus.$on('cancelEdit', (data) => {
+                    this.question.title = data
+                })
             }
         }
     }

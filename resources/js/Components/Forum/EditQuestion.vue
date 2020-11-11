@@ -11,7 +11,16 @@
                     label="Title"
                     required
                 ></v-text-field>
-                
+                <v-autocomplete
+                    v-model="form['tag_id']"
+                    :items="tags"
+                    item-text="name"
+                    item-value="id"
+                    label="Tags"
+                    required
+                    multiple
+                    chips
+                ></v-autocomplete>
                 <vue-simplemde v-model="form['body']" name="body" id="body"/>
 
                  <v-btn
@@ -44,13 +53,22 @@
         data() {
             return {
                 form: {
+                    slug: null,
                     title: null,
                     body: null,
+                    tag_id: [],
                 },
+                tags: []
             }
         },
         mounted() {
-            this.form = this.question
+            this.form.slug = this.question.slug
+            this.form.title = this.question.title
+            this.form.body = this.question.body
+        },
+        created() {
+            this.fetchTags()
+            this.setTags()
         },
         methods: {
             update() {
@@ -70,14 +88,26 @@
                                     icon: data.status,
                                     title: data.message
                                 });
-                                this.cancel();
+                                this.cancel()
+                                this.$router.push('/question/' + data.question_slug);
                              })
                             .catch(error => console.log(error.response.data))
                     }
                 })
             },
             cancel() {
-                EventBus.$emit('cancelEdit')
+                EventBus.$emit('cancelEdit', (this.form.title))
+            },
+            fetchTags() {
+                axios.get('/api/tag')
+                    .then(res => {this.tags = res.data.data})
+                    .catch(error => console.log(error.response.data))
+            },
+            setTags() {
+                let tagss = this.question.tags
+                for (let i = 0; i < tagss.length; i++) {
+                    this.form.tag_id.push(this.question.tags[i].tag_id)
+                }
             }
         }
     }

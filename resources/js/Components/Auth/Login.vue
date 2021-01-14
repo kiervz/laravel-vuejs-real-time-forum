@@ -5,6 +5,14 @@
             <div class="col-md-6">
                 <v-card class="mx-auto">
                     <v-card-text>
+                        <v-alert
+                            dense
+                            outlined
+                            type="error"
+                            v-if="error"
+                            >
+                            {{ error }}
+                        </v-alert>
                         <v-form
                             ref="form"
                             lazy-validation
@@ -68,12 +76,15 @@
                 axios.post('api/auth/login', this.form)
                     .then(response => { User.responseAfterLogin(response) })
                     .catch(error => {
-                        if (error.response.status == '401') {
-                            this.error = error.response.data.error;
-                            this.errors = [];
-                        } else {
-                            this.errors = error.response.data.errors;
-                            this.error = null;
+                        let status = error.response.status
+                        if (!status == 401 || status == 422) {
+                            this.errors = error.response.data.errors
+                        }
+                        else if (status == 429) {
+                            this.error = error.response.data.errors.email[0]
+                        }
+                        else { 
+                            this.error = error.response.data.error
                         }
                     });
             }

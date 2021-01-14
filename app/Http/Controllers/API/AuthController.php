@@ -8,9 +8,13 @@ use App\Http\Controllers\API\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignupRequest;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {
+    use AuthenticatesUsers;
     /**
      * Create a new AuthController instance.
      *
@@ -29,9 +33,23 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->all();
-        
-        if (! $token = Auth::attempt($credentials)) {
-            return response()->json(['error' => 'Incorrect Username or Password.'], 401);
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                $this->incrementLoginAttempts($request);
+                return response()->json(['error' => 'Invalid Credentials'], 401);
+            }
+        }
+        catch(JWTException $e) {
+            // something went wrong
+            $this->incrementLoginAttempts($request);
+            return response()->json(['error' => 'Could Not Create Token'], 500);
         }
 
         return $this->respondWithToken($token);

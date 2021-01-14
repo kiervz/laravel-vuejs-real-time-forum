@@ -5,6 +5,14 @@
             <div class="col-md-6">
                 <v-card class="mx-auto">
                     <v-card-text>
+                        <v-alert
+                            dense
+                            outlined
+                            type="error"
+                            v-if="error"
+                            >
+                            {{ error }}
+                        </v-alert>
                         <v-form
                             ref="form"
                             lazy-validation
@@ -76,6 +84,7 @@
                         type: 'password'
                     },
                 ],
+                error: null,
                 errors: []
             }
         },
@@ -94,7 +103,15 @@
                         });
                         this.$router.push({ name: 'login'});
                     })
-                    .catch(error => this.errors = error.response.data.errors)
+                    .catch(error => {
+                        let status = error.response.status
+                        if (!status == 401 || status == 422) {
+                            this.errors = error.response.data.errors
+                        }
+                        else { 
+                            this.error = error.response.data.error
+                        }
+                    })
             }
         }
     }

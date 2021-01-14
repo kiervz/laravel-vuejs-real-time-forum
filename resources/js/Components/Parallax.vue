@@ -6,10 +6,10 @@
             <v-row align="center" justify="center">
                 <v-col class="text-center" cols="12">
                     <h1 class="display-1 font-weight-thin mb-4">
-                    Vuetify
+                    Stack Underflow
                     </h1>
                     <h4 class="subheading">
-                    Build your application today!
+                    Stack Overflow is the largest, most trusted online community for developers to learn, share​ ​their programming ​knowledge, and build their careers.
                     </h4>
                 </v-col>
             </v-row>
